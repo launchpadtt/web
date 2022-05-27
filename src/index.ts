@@ -42,6 +42,25 @@ import axios from 'axios';
 
 // user.set({ name: 'NEW NAME', age: 9999 });
 
-const user = new User ({ name: "new record" });
+// const user = new User ({ name: "new record", age: 0 });
+
+// console.log(user.get('name'));
+const user = new User ({ id: 1, name: 'newer name', age: 0 });
+
+user.on('save', () => {
+  console.log(user);
+})
+
+// user.trigger('change');
+
+// user.set({name: 'New name'});
 
 user.save();
+
+// user.save();
+
+// user.events.on('change', () => {
+//   console.log('change!');
+// });
+
+// user.events.trigger('change');
