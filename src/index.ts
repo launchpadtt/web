@@ -1,5 +1,6 @@
-import { User } from './models/User';
-import axios from 'axios';
+import { User, UserProps } from './models/User';
+import axios, { AxiosResponse } from 'axios';
+import { Collection } from './models/Collection';
 
 // console.log('Hi there');
 
@@ -45,17 +46,17 @@ import axios from 'axios';
 // const user = new User ({ name: "new record", age: 0 });
 
 // console.log(user.get('name'));
-const user = new User ({ id: 1, name: 'newer name', age: 0 });
+// const user = new User ({ id: 1, name: 'newer name', age: 0 });
 
-user.on('save', () => {
-  console.log(user);
-})
+// user.on('save', () => {
+  // console.log(user);
+// })
 
 // user.trigger('change');
 
 // user.set({name: 'New name'});
 
-user.save();
+// user.save();
 
 // user.save();
 
@@ -64,3 +65,27 @@ user.save();
 // });
 
 // user.events.trigger('change');
+
+// const user = User.buildUser({ id: 1});
+
+// user.on('change', () => {
+//   console.log(user);
+// })
+
+// user.fetch();
+
+// axios.get('http://localhost:3000/users')
+//   .then((response: AxiosResponse) => {
+//     console.log(response.data);
+//   });
+
+const collection = new Collection<User, UserProps>(,
+  'http://localhost:3000/users',
+  (json: UserProps) => User.buildUser(json)
+);
+
+collection.on('change', () => {
+  console.log(collection);
+})
+
+collection.fetch();
